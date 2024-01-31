@@ -33,18 +33,10 @@ const ScrollableBlocks = ({ blocks }) => {
     };
   }, [blocks, observer]);
 
-
-
   const scrollToBlock = (blockId) => {
     const element = document.getElementById(blockId);
     if (element) {
-      const elementTop = element.offsetTop;
-      const topOffset = 100;
-
-      window.scrollTo({
-        top: elementTop - topOffset,
-        behavior: 'smooth',
-      });
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
