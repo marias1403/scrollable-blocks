@@ -1,0 +1,34 @@
+.currentBlock {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 10px;
+}
+
+.buttons {
+  position: fixed;
+  top: 30px;
+  right: 0;
+  display: flex;
+  gap: 5px;
+  padding-inline: 8px;
+}
+
+.button {
+  width: 30px;
+  height: 30px;
+  border-radius: 3px;
+  border: none;
+  background-color: lightgray;
+}
+
+.button-active {
+  background-color: mediumspringgreen;
+}
+
+.element {
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  height: 100px;
+}
