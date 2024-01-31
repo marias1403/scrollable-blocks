@@ -3,49 +3,46 @@ import './ScrollableBlocks.css';
 
 const ScrollableBlocks = ({ blocks }) => {
   const [currentBlockId, setCurrentBlockId] = useState(null);
-  const observerRef = useRef();
+  const [observer, setObserver] = useState(null);
 
-  console.log(observerRef);
+  const options = {
+    root: null,
+    threshold: 1
+  };
 
   useEffect(() => {
-    const handleIntersection = (entries) => {
-      entries.forEach((entry) => {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
+          console.log(entry);
           setCurrentBlockId(entry.target.id);
         }
       });
-    };
+    }, options);
 
-    observerRef.current = new IntersectionObserver(handleIntersection, {
-      root: null,
-      threshold: 0.5
-    });
+    setObserver(obs);
+    return () => obs.disconnect();
+  }, []);
 
-    blocks.forEach((block) => {
-      const element = document.getElementById(block.id);
-      if (element) {
-        observerRef.current.observe(element);
-      }
-    });
+  useEffect(() => {
+    const targets = document.querySelectorAll('.element');
+    targets.forEach(target => observer?.observe(target));
 
     return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
+      targets.forEach(target => observer?.unobserve(target));
     };
-  }, [blocks]);
+  }, [blocks, observer]);
+
+
 
   const scrollToBlock = (blockId) => {
     const element = document.getElementById(blockId);
     if (element) {
       const elementTop = element.offsetTop;
-      const windowHeight = window.innerHeight;
-      const elementHeight = element.clientHeight;
-      const centerOffset = windowHeight / 2 - elementHeight / 2;
-      const topOffset = 200;
+      const topOffset = 100;
 
       window.scrollTo({
-        top: elementTop - centerOffset + topOffset,
+        top: elementTop - topOffset,
         behavior: 'smooth',
       });
     }
