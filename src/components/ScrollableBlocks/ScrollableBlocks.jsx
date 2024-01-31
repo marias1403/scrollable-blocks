@@ -35,12 +35,12 @@ const ScrollableBlocks = ({ blocks }) => {
   const scrollToBlock = (blockId) => {
     const element = document.getElementById(blockId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   };
 
   return (
-    <div>
+    <div className='container'>
       <div className='currentBlock'>Текущий блок: {currentBlockId}</div>
       <div className='buttons'>
         {blocks.map((block) => (
