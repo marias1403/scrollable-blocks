@@ -14,7 +14,6 @@ const ScrollableBlocks = ({ blocks }) => {
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          console.log(entry);
           setCurrentBlockId(entry.target.id);
         }
       });
